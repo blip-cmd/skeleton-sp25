@@ -20,10 +20,8 @@ public class IfElseMystery1 {
 
     // TODO: For each call below, indicate what output is produced.
     public static void main(String[] args) {
-        ifElseMystery1(3, 20);
-        ifElseMystery1(4, 5);
-        ifElseMystery1(5, 5);
-        ifElseMystery1(6, 10);
+        int x = 25/2;
+        System.out.print(x);
     }
 }
 

@@ -18,6 +18,11 @@ public class NumberTotal {
 
 /* Before running the code, type your answer below.
 
-TODO: Write output here
+24 1
+20 2
+17 3
+
+
+
 
 Then, click the green play button to check your work. */
