@@ -20,6 +20,17 @@ public class GameLogic {
      */
     public static int moveTileUpAsFarAsPossible(int[][] board, int r, int c, int minR) {
         // TODO: Fill this in in tasks 2, 3, 4
+        //if tile empty -> return 0
+            if(board[r][c]== 0){
+                return 0;
+            }
+
+        // move up from given tile
+        while(r > 0 && board[r-1][c] == 0){
+               board[r-1][c] = board[r][c]; // move tile up
+               board[r][c] = 0; //
+                r--;
+           }
         return 0;
     }
 
