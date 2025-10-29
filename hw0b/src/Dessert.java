@@ -16,10 +16,10 @@ public class Dessert {
     public static void main(String[] args){
         System.out.println("I love dessert!");
 
-        Dessert fruit = new Dessert(2, 5);
-        Dessert salad = new Dessert(1, 10);
-
-        fruit.printDessert();
-        salad.printDessert();
+//        Dessert fruit = new Dessert(2, 5);
+//        Dessert salad = new Dessert(1, 10);
+//
+//        fruit.printDessert();
+//        salad.printDessert();
     }
 }
