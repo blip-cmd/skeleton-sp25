@@ -26,13 +26,13 @@ public class GameLogic {
 
 
         // move upward though empty tile from given tile
-        while(r > 0 && board[r-1][c] == 0) {
+        while(r > minR && board[r-1][c] == 0) {
             board[r - 1][c] = board[r][c];
             board[r][c] = 0;
             r--;
             }
 
-        if (r > 0 && board[r - 1][c] == board[r][c]) {
+        if (r > minR && board[r - 1][c] == board[r][c]) {
             board[r - 1][c] *= 2;  // Merge
             board[r][c] = 0;       // Clear original tile
             return 1 + (r - 1);    // Return merge row + 1
