@@ -49,10 +49,20 @@ public class GameLogic {
      * @param board     the current state of the board
      * @param c         the column to tilt up.
      */
+
     public static void tiltColumn(int[][] board, int c) {
-        // TODO: fill this in in task 5
-        return;
+        int minR = 0;
+        for (int r = 0; r < board.length; r++) { //top to bottom
+            if (board[r][c] != 0) {
+                int mergeRowPlusOne = moveTileUpAsFarAsPossible(board, r, c, minR);
+                if (mergeRowPlusOne != 0) {
+                    minR = mergeRowPlusOne;
+                }
+            }
+        }
     }
+
+
 
     /**
      * Modifies the board to simulate tilting all columns upwards.
