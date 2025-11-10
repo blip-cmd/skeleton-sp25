@@ -3,6 +3,7 @@ package adventure;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdRandom;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ public class BeeCountingStage implements AdventureStage {
     private List<String> input;
 
     public BeeCountingStage(In in) {
+        this.input = new ArrayList<>();
         this.in = in;
         this.responses = Map.of("go", new SpeciesListStage(in));
     }
@@ -83,7 +85,7 @@ public class BeeCountingStage implements AdventureStage {
      */
     private int sumInput() {
         int sum = 0;
-        for (int i = 0; i <= this.input.size(); i++) {
+        for (int i = 0; i <= this.input.size()-1; i++) {
             sum += Integer.parseInt(this.input.get(i));
         }
         return sum;
