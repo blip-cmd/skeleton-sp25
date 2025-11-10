@@ -1,10 +1,11 @@
 import java.util.List;
+import java.util.ArrayList; // import the ArrayList class
 
 public class LinkedListDeque61B<T> implements Deque61B<T>{
-    Node sentinel;
-    int size;
+    private Node sentinel;
+    private int size;
 
-    class Node {
+    private class Node {
         T item;
         Node prev;
         Node next;
@@ -21,23 +22,35 @@ public class LinkedListDeque61B<T> implements Deque61B<T>{
     sentinel.next = sentinel;
     sentinel.prev = sentinel;
     size = 0;
-
-
     }
 
     @Override
     public void addFirst(T x) {
-
+    Node oldFirst = sentinel.next;
+    Node newNode = new Node(x ,sentinel, oldFirst);
+    sentinel.next = newNode;
+    oldFirst.prev = oldFirst;
+    size++;
     }
 
     @Override
     public void addLast(T x) {
-
+    Node oldLast = sentinel.prev;
+    Node newNode = new Node(x, oldLast, sentinel);
+    oldLast.next = newNode;
+    sentinel.prev = newNode;
+    size++;
     }
 
     @Override
     public List<T> toList() {
-        return List.of();
+        List<T> returnList = new ArrayList<>();
+        Node current = sentinel.next;
+        while (current != sentinel){
+            returnList.add(current.item);
+            current = current.next;
+        }
+        return returnList;
     }
 
     @Override
