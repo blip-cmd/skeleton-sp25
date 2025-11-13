@@ -66,8 +66,8 @@ public class LinkedListDeque61BTest {
 //         lld1.remove
      }
 
-     @Test
-     public void sizeTest(){
+    @Test
+    public void sizeTest(){
          Deque61B<String> d = new LinkedListDeque61B<>();
          assertThat(d.size()).isEqualTo(0);
          d.addFirst("x");
@@ -75,7 +75,7 @@ public class LinkedListDeque61BTest {
          assertThat(d.size()).isEqualTo(2);
      }
 
-     @Test
+    @Test
     public void getTest(){
          Deque61B<String> d = new LinkedListDeque61B<>();
          assertThat(d.get(0)).isNull();
@@ -83,4 +83,41 @@ public class LinkedListDeque61BTest {
          assertThat(d.get(0)).contains("x");
      }
 
+    @Test
+    public void getRecursiveTest(){
+        Deque61B<String> d = new LinkedListDeque61B<>();
+        assertThat(d.getRecursive(0)).isNull();
+        d.addFirst("x");
+        assertThat(d.getRecursive(0)).contains("x");
+    }
+
+    @Test
+    public void testRemoveFirstEmpty() {
+        Deque61B<String> d = new LinkedListDeque61B<>();
+        assertThat(d.removeFirst()).isNull(); // removing from empty deque
+    }
+
+    @Test
+    public void testRemoveFirstBasic() {
+        Deque61B<String> d = new LinkedListDeque61B<>();
+        d.addLast("x");
+        d.addLast("y");
+        assertThat(d.removeFirst()).isEqualTo("x"); // should remove "x"
+        assertThat(d.toList()).containsExactly("y").inOrder(); // remaining list
+    }
+
+    @Test
+    public void testRemoveLastEmpty(){
+        Deque61B<String> d = new LinkedListDeque61B<>();
+        assertThat(d.removeLast()).isNull(); // removing from empty deque
+    }
+
+    @Test
+    public void testRemoveLastBasic(){
+        Deque61B<String> d = new LinkedListDeque61B<>();
+        d.addLast("x");
+        d.addLast("y");
+        assertThat(d.removeLast()).isEqualTo("y");
+        assertThat(d.toList()).containsExactly("x").inOrder();
+    }
 }
