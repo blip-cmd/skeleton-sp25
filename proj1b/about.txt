@@ -1,0 +1,5 @@
+A fully functional ArrayDeque61B with constant-time operations
+
+Clean equals(), toString(), and iterator() methods
+
+A powerful Maximizer61B utility with both Comparable and Comparator support

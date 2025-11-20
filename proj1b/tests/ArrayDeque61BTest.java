@@ -1,4 +1,7 @@
 import deque.ArrayDeque61B;
+import deque.Maximizer61B;
+import java.util.Comparator;
+
 
 import deque.Deque61B;
 import jh61b.utils.Reflection;
@@ -135,6 +138,75 @@ public class ArrayDeque61BTest {
         for (int i = 25; i < 32; i++) {
             assertEquals((Integer) i, aDeque.get(i - 25));
         }
+    }
+
+//    Copilot wrote this test
+    @Test
+    public void testIteratorWorks() {
+        Deque61B<String> aDeque = new ArrayDeque61B<>();
+        aDeque.addLast("a");
+        aDeque.addLast("b");
+        aDeque.addLast("c");
+
+        StringBuilder result = new StringBuilder();
+        for (Object s : aDeque) {
+            result.append(s);
+        }
+
+        assertThat(result.toString()).isEqualTo("abc");
+    }
+
+//    This test is not exhaustive of the 3 operations equals() has.
+    @Test
+    public void testEqualsBasic() {
+        Deque61B<String> d1 = new ArrayDeque61B<>();
+        Deque61B<String> d2 = new ArrayDeque61B<>();
+        Deque61B<String> d3 = new ArrayDeque61B<>();
+
+        // Add elements to both
+        d1.addLast("a");
+        d1.addLast("b");
+        d2.addLast("a");
+        d2.addLast("b");
+        d3.addFirst("r");
+
+        // Compare
+        assertThat(d1.equals(d2)).isTrue();
+        assertThat(d3.equals(d1)).isFalse();
+    }
+
+@Test
+    public void testToStringWithIntegers() {
+        Deque61B<Integer> deque = new ArrayDeque61B<>();
+        deque.addLast(3);
+        deque.addLast(3);
+        deque.addLast(2);
+
+        String expected = "[3, 3, 2]";
+        assertThat(deque.toString()).isEqualTo(expected);
+    }
+
+    @Test
+    public void testMaxWithComparable() {
+        Deque61B<Integer> deque = new ArrayDeque61B<>();
+        deque.addLast(3);
+        deque.addLast(7);
+        deque.addLast(5);
+
+        Integer result = Maximizer61B.<Integer>max(deque);
+        assertThat(result).isEqualTo(7);
+    }
+
+    @Test
+    public void testMaxWithComparator() {
+        Deque61B<String> deque = new ArrayDeque61B<>();
+        deque.addLast("hi");
+        deque.addLast("hello");
+        deque.addLast("hey");
+
+        Comparator<String> byLength = (a, b) -> a.length() - b.length();
+        String result = Maximizer61B.max(deque, byLength);
+        assertThat(result).isEqualTo("hello");
     }
 
 

@@ -1,6 +1,10 @@
 package deque;
 
+import net.sf.saxon.functions.ConstantFunction;
+
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 //@SuppressWarnings("unchecked")
@@ -121,5 +125,56 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         items = newItems;
         nextLast = size ;
         nextFirst = capacity -1 ;
+    }
+
+    /**
+     * Returns an iterator over elements of type {@code T}.
+     *
+     * @return an Iterator object
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+
+            @Override
+            public T next() {
+                T item = get(index);
+                index++;
+                return item;
+            }
+        };
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(!( o instanceof Deque61B<?> other) ){
+            return false;
+        }
+        if (this.size != other.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.size(); i++){
+            if (this.get(i).equals(other.get(i))){
+                continue;
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String toString(){
+        List<T> result = new ArrayList<>(this.size);
+        for(int i = 0; i < this.size; i++){
+            result.add(this.get(i));
+        }
+        return result.toString();
     }
 }
