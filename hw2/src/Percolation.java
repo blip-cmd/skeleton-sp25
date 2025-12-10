@@ -21,20 +21,19 @@ public class Percolation {
 
     public void open(int row, int col) {
         // edges
-        if(row < 0 || row >=N || col< 0 || col >= N) {
-            throw new IndexOutOfBoundsException();
-        }
+        validate(row,col);
+
         // opening the site
         if(tf_grid[row][col]) return;
         tf_grid[row][col] = true;
         openSiteCount ++;
 
-        int index = row*N + col; //this is how we map the 2d grid to a 1d list as the WeightedQuickUnionUF expects .
+        int index = to1D(row, col); //this is how we map the 2d grid to a 1d list as the WeightedQuickUnionUF expects .
         //after it's open, we must connect it to neighbour sites.
-        if (row > 0 && isOpen(row-1, col)) uf.union(index,(row-1)*N + col ); // top neighbor
-        if (row < N-1 &&  isOpen(row+1, col)) uf.union(index,(row+1)*N + col); // bottom neighbor
-        if (col > 0 && isOpen(row,col-1)) uf.union(index, (row)*N +col-1); // left neighbor
-        if (col < N-1 && isOpen(row,col+1)) uf.union(index, (row*N)+col+1); // right neighbor
+        if (row > 0 && isOpen(row-1, col)) uf.union(index,to1D(row-1, col) ); // top neighbor
+        if (row < N-1 &&  isOpen(row+1, col)) uf.union(index,to1D(row+1, col)); // bottom neighbor
+        if (col > 0 && isOpen(row,col-1)) uf.union(index, to1D(row, col-1)); // left neighbor
+        if (col < N-1 && isOpen(row,col+1)) uf.union(index, to1D(row, col+1)); // right neighbor
 
         // union with conceptual virtual sites
         if (row == 0) uf.union(index, topVirtualSite );
@@ -42,21 +41,17 @@ public class Percolation {
     }
 
     public boolean isOpen(int row, int col) {
-        // edges
-        if(row < 0 || row >=N || col< 0 || col >= N) {
-            throw new IndexOutOfBoundsException();
-        }
+        //edge
+        validate(row,col);
 
         return tf_grid[row][col];
     }
 
     public boolean isFull(int row, int col) {
         // edges
-        if(row < 0 || row >=N || col< 0 || col >= N) {
-            throw new IndexOutOfBoundsException();
-        }
-        if (!tf_grid[row][col]) return false; //
-        int index = row*N + col;
+        validate(row,col);
+
+        int index = to1D(row, col);
         return isOpen(row, col) && uf.connected(index,topVirtualSite);
     }
 
@@ -68,7 +63,16 @@ public class Percolation {
         return uf.connected(topVirtualSite, bottomVirtualSite);
     }
 
-    // TODO: Add any useful helper methods (we highly recommend this!).
-    // TODO: Remove all TODO comments before submitting.
+    //some useful helper methods: to1D, validate
+    private int to1D(int row,int column){
+        return row * N + column;
+    }
+
+    private void validate(int row, int column){
+        // edges
+        if(row < 0 || row >=N || column< 0 || column >= N) {
+            throw new IndexOutOfBoundsException("row or column out of bounds");
+        }
+    }
 
 }
