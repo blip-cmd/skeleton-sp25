@@ -36,7 +36,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
         super();
         for (int year : ts.keySet()){
             if(year >= startYear && year <= endYear){
-                this.put(year, ts.get(year));
+                this.put(year, ts.getOrDefault(year, 0.0));
             }
         }
     }
@@ -76,12 +76,12 @@ public class TimeSeries extends TreeMap<Integer, Double> {
 
         // add current ts to result
         for(int year : this.keySet()){
-            result.put(year, this.get(year));
+            result.put(year, this.getOrDefault(year,0.0));
         }
 
         // add in-coming ts to update result
         for(int year : ts.keySet()){
-            result.put(year, this.getOrDefault(year,0.0) + ts.get(year));
+            result.put(year, this.getOrDefault(year,0.0) + ts.getOrDefault(year,0.0));
         }
 
         return result;
@@ -102,12 +102,15 @@ public class TimeSeries extends TreeMap<Integer, Double> {
             if(!ts.containsKey(year)){
                 throw new IllegalArgumentException("Your timeseries is missing an existing year");
             }
-            result.put(year, this.get(year) / ts.get(year));
+            result.put(year, this.getOrDefault(year, 0.0) / ts.getOrDefault(year, 0.0));
         }
 
         return result;
     }
 
-    // TODO: Add any private helper methods.
-    // TODO: Remove all TODO comments before submitting.
+    @Override
+    public Double get(Object key) {
+        Double value = super.get(key);
+        return value == null ? 0.0 : value;
+    }
 }
